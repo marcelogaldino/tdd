@@ -9,8 +9,9 @@ describe('Todo API', () => {
 			.expect(200)
 			.then((response) => {
 				expect(response.body).toEqual(
-					expect.arryContaining([
-						expect.ObjectContaining({
+					expect.arrayContaining([
+						expect.objectContaining({
+							id: expect.any(Number),
 							name: expect.any(String),
 							completed: expect.any(Boolean)
 						})
@@ -26,7 +27,7 @@ describe('Todo API', () => {
 			.expect(200)
 			.then((response) => {
 				expect(response.body).toEqual(
-					expect.ObjectContaining({
+					expect.objectContaining({
 						name: expect.any(String),
 						completed: expect.any(Boolean)
 					})
@@ -50,7 +51,7 @@ describe('Todo API', () => {
 			.expect(201)
 			.then((response) => {
 				expect(response.body).toEqual(
-					expect.ObjectContaining({
+					expect.objectContaining({
 						name: 'study test',
 						completed: false
 					})
