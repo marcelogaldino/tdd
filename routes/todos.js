@@ -37,4 +37,32 @@ router.post('/', function (req, res, next) {
     res.status(201).json(newTodo)
 });
 
+router.put('/:id', function (req, res, next) {
+    const { body, params } = req
+
+    if (typeof body.name !== 'string') {
+        return next(createError(422, 'Validation Error'))
+    }
+
+    const todoFound = todos.find(todo => todo.id === Number(params.id))
+
+    if (!todoFound) return next(createError(404, 'Not Found'))
+
+    todoFound.name = body.name
+
+    res.status(200).json(todoFound)
+});
+
+router.delete('/:id', function (req, res, next) {
+    const { params } = req
+
+    const hasTodo = todos.find(todo => todo.id === Number(params.id))
+
+    if (!hasTodo) return next(createError(404, 'Not Found'))
+
+    todos.filter(todo => todo.id !== Number(params.id))
+
+    res.status(204).send()
+});
+
 module.exports = router;
